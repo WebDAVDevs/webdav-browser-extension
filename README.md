@@ -23,4 +23,7 @@ But instead of a bookmarklet you can use it as an extension.
 
 ## Install
 * Firefox https://addons.mozilla.org/en-US/firefox/addon/webdav-browser/
-* Chrome: TBD (I don't have a dev account) 
+* Chrome: TBD (I don't have a dev account)
+
+## See also
+* [Awesome WebDAV](https://github.com/stokito/awesome-webdav) list of useful software and services for WebDAV
