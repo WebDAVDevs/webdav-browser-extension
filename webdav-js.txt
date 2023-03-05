@@ -1,0 +1,10 @@
+The addon/extension contains two files
+
+webdav-min.js
+style-min.css
+
+it's a minifed version of https://github.com/dom111/webdav-js
+
+They are taked from jsdelivr.com
+
+
