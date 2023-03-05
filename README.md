@@ -1,6 +1,9 @@
 # webdav-browser-extension
 Chrome extension to browse a URL as a WebDAV share.
 
+Open WebDAV folder in a browser and you'll have ether 403 error or just a plain directory listing.
+Then click on the addon button and it will make a file manager from the folder where you can watch, upload, delete files and direcotries.
+
 It just uses the https://github.com/dom111/webdav-js
 But instead of a bookmarklet you can use it as an extension.
 
@@ -14,3 +17,6 @@ But instead of a bookmarklet you can use it as an extension.
 * Option to load the webdav-js directly from CDN with a latest version
 * Open any WebDAV server e.g. just as an app. See also https://github.com/dom111/webdav-js/issues/120
 
+## Install
+* Firefox https://addons.mozilla.org/en-US/firefox/addon/webdav-browser/
+* Chrome: TBD (I don't have a dev account) 

@@ -5,6 +5,6 @@ style-min.css
 
 it's a minifed version of https://github.com/dom111/webdav-js
 
-They are taked from jsdelivr.com
+They are taken from jsdelivr.com
 
 

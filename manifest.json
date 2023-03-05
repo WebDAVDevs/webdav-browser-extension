@@ -1,6 +1,6 @@
 {
   "name": "WebDAV Browser",
-  "description": "Browse a URL as a WebDAV share",
+  "description": "Browse a URL as a WebDAV share\nOpen WebDAV folder in a browser and you'll have ether 403 error or just a plain directory listing.\nThen click on the addon button and it will make a file manager from the folder where you can watch, upload, delete files and directories.",
   "homepage_url": "https://github.com/stokito/webdav-browser-extension",
   "version": "1.0",
   "manifest_version": 3,
