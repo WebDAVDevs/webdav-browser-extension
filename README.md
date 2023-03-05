@@ -12,4 +12,5 @@ But instead of a bookmarklet you can use it as an extension.
   * On 403 error we can try a PROPFIND
   * `Alt-Svc: dav` header https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Alt-Svc
 * Option to load the webdav-js directly from CDN with a latest version
+* Open any WebDAV server e.g. just as an app. See also https://github.com/dom111/webdav-js/issues/120
 
