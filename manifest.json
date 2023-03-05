@@ -1,0 +1,21 @@
+{
+  "name": "WebDAV Browser",
+  "description": "Browse a URL as a WebDAV share",
+  "version": "1.0",
+  "manifest_version": 3,
+  "icons": {
+    "48": "icons8-dav-50px.png"
+  },
+  "permissions": [
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "http://*/*",
+    "https://*/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "icons8-dav-50px.png"
+  }
+}
