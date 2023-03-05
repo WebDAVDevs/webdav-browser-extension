@@ -18,5 +18,11 @@
   "action": {
     "default_popup": "popup.html",
     "default_icon": "icons8-dav-50px.png"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "webdav-browser@stokito.com",
+      "strict_min_version": "42.0"
+    }
   }
 }
