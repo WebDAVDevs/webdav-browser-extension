@@ -1,6 +1,7 @@
 {
   "name": "WebDAV Browser",
   "description": "Browse a URL as a WebDAV share",
+  "homepage_url": "https://github.com/stokito/webdav-browser-extension",
   "version": "1.0",
   "manifest_version": 3,
   "icons": {
