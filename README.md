@@ -16,8 +16,9 @@ But instead of a bookmarklet you can use it as an extension.
 * Remember folders that should be viewed as dav
 * Use a state as for Dark Reader or tutorial.focus-mode. The current popup solution is lame.
 * Autodetect a webdav share:
-  * On 403 error we can try a PROPFIND
-  * `Alt-Svc: dav` header https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Alt-Svc
+  * On 403 error we can try a PROPFIND. If it was successful then load the UI.
+  * If the directory has a listing with a `<title>Index of ...</title>` then it may have a dav version too.
+  * `Alt-Svc: dav` header https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Alt-Svc But nobody will set the header
 * Option to load the webdav-js directly from CDN with a latest version
 * Open any WebDAV server e.g. just as an app. See also https://github.com/dom111/webdav-js/issues/120
 
