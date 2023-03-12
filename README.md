@@ -11,6 +11,13 @@ See [usage video](usage.gif)
 It just uses the https://github.com/dom111/webdav-js
 But instead of a bookmarklet you can use it as an extension.
 
+## Install
+* Firefox https://addons.mozilla.org/en-US/firefox/addon/webdav-browser/
+* Chrome: TBD (I don't have a dev account)
+
+## See also
+* [Awesome WebDAV](https://github.com/stokito/awesome-webdav) list of useful software and services for WebDAV
+
 ## TODO and known problems
 * You need a dir listing enabled otherwise it will fail due to a bug https://github.com/dom111/webdav-js/issues/123
 * Remember folders that should be viewed as dav
@@ -23,12 +30,6 @@ But instead of a bookmarklet you can use it as an extension.
 * Option to load the webdav-js directly from CDN with a latest version
 * Open any WebDAV server e.g. just as an app. See also https://github.com/dom111/webdav-js/issues/120
 
-## Install
-* Firefox https://addons.mozilla.org/en-US/firefox/addon/webdav-browser/
-* Chrome: TBD (I don't have a dev account)
-
-## See also
-* [Awesome WebDAV](https://github.com/stokito/awesome-webdav) list of useful software and services for WebDAV
 
 ## Details
 Currently there is no a simple solution to see and work with a WebDAV share for unexperienced users. You need to mount a drive (which is not that easy) or you need to use a special software.
