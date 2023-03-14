@@ -26,7 +26,10 @@ But instead of a bookmarklet you can use it as an extension.
   * On 403 error we can try a PROPFIND or OPTIONS. If it was successful then load the UI.
   * `DAV: 1,2,3` header is already in use but returned only on OPTIONS. Maybe add it on `GET /` 403 error?
   * `Alt-Svc: dav` header https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Alt-Svc But nobody will set the header
+  * https://lists.w3.org/Archives/Public/w3c-dist-auth/2023JanMar/0000.html
   * If the directory has a listing with a `<title>Index of ...</title>` then it may have a dav version too but unlikely.
+  * By a folder name `/dav/` or subdomain `dav.example.com`
+  * List of existing cloud providers like `https://webdav.yandex.ru`
 * Option to load the webdav-js directly from CDN with a latest version
 * Open any WebDAV server e.g. just as an app. See also https://github.com/dom111/webdav-js/issues/120
 
