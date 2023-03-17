@@ -1,0 +1,8 @@
+{
+  "extensionName": {
+    "message": "WebDAV обозреватель"
+  },
+  "extensionDescription": {
+    "message": "Позволяет просмотреть WebDAV папку"
+  }
+}
