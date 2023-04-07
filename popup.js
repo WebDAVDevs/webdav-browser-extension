@@ -8,7 +8,10 @@ chrome.tabs.query({
     let activeTab = tabs[0];
     insertWebdavJs(activeTab)
     let davUrl = activeTab.url
+    storeTheUrlAsKnown(davUrl)
+})
 
+function storeTheUrlAsKnown(davUrl) {
     chrome.storage.local.get(function (storedWebDavSettings) {
         console.log('storedWebDavSettings ', storedWebDavSettings)
         let newWebDavSettings = {knownDavs: []}
@@ -22,7 +25,7 @@ chrome.tabs.query({
         console.log('newWebDavSettings ', newWebDavSettings)
         chrome.storage.local.set(newWebDavSettings)
     })
-})
+}
 
 function insertWebdavJs(tab) {
     chrome.scripting.executeScript({
