@@ -24,6 +24,14 @@ chrome.storage.onChanged.addListener((changes, area) => {
     }
 })
 
+function urlHasDav(url) {
+    return url.includes("//dav.") || // dav subdomain
+        url.includes("//webdav.") ||
+        url.includes("/dav/") ||  // dav folder in url
+        url.includes("/webdav/") ||
+        url.includes("/remote.php/dav/files/") // NextCloud
+}
+
 function suggester(status) {
     if (!(status.type == 'main_frame' && status.method === 'GET' && status.url.endsWith("/"))) {
         return
@@ -41,8 +49,21 @@ function suggester(status) {
             return
         }
     }
-    if (noHtmlReturned) {
-        //TODO Check OPTIONS or even PROPFIND directly
+    if (noHtmlReturned || urlHasDav(status.url)) {
+        console.log('High chance of DAV')
+        // Try PROPFIND
+        fetch(status.url, {method: 'PROPFIND', headers: {Depth: 0}})
+            .then(response => response.text())
+            .then(propfindXml => checkPropfindResp(propfindXml, status.tabId))
+            .catch(error => console.log('Error:', error))
+    }
+}
+
+function checkPropfindResp(propfindXml, tabId) {
+    // Does it have <D:multistatus>?
+    if (propfindXml.includes('multistatus')) {
+        console.log('yep, this is dav')
+        insertWebdavJs(tabId)
     }
 }
 
