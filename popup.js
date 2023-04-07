@@ -1,3 +1,13 @@
+class DavSettings {
+    /**
+     *
+     * @param {string[]} knownDavs
+     */
+    constructor(knownDavs) {
+        this.knownDavs = knownDavs
+    }
+}
+
 chrome.tabs.query({
     currentWindow: true,
     active: true
@@ -7,16 +17,39 @@ chrome.tabs.query({
     }
     let activeTab = tabs[0]
     let davUrl = activeTab.url
-    // insertWebdavJs(activeTab.id)
-    storeTheUrlAsKnown(davUrl)
+    getDavSettings((davSettings) => checkDavRender(davSettings, davUrl, activeTab.id))
 })
 
-function saveNewWebDavSettings(newWebDavSettings, davUrl) {
-    if (newWebDavSettings.knownDavs.includes(davUrl)) {
-        console.log('davUrl already known ', davUrl)
+/**
+ *
+ * @param {DavSettings} davSettings
+ * @param {string} davUrl
+ * @param {int} tabId
+ */
+function checkDavRender(davSettings, davUrl, tabId) {
+    let knownIdx = davSettings.knownDavs.indexOf(davUrl);
+    if (knownIdx < 0) {
+        console.log('store davUrl as known ', davUrl)
+        davSettings.knownDavs.push(davUrl)
+        saveNewWebDavSettings(davSettings)
+        insertWebdavJs(tabId)
+    } else {
+        console.log('davUrl already known, disabling ', davUrl, knownIdx)
+        let newKnownDavs = []
+        for (let i = 0; i < davSettings.knownDavs.length; i++) {
+            if (i != knownIdx) {
+                newKnownDavs.push(davSettings.knownDavs[i])
+            }
+        }
+        davSettings.knownDavs = newKnownDavs
+        console.log('davUrl already known, knownDavs ', davSettings.knownDavs)
+        saveNewWebDavSettings(davSettings)
+        setTimeout(() => chrome.tabs.reload(tabId), 500)
         return
     }
-    newWebDavSettings.knownDavs.push(davUrl)
+}
+
+function saveNewWebDavSettings(newWebDavSettings) {
     console.log('newWebDavSettings ', newWebDavSettings)
     chrome.storage.local.set(newWebDavSettings)
 }
@@ -27,7 +60,7 @@ function saveNewWebDavSettings(newWebDavSettings, davUrl) {
 function getDavSettings(callback) {
     chrome.storage.local.get(function (storedWebDavSettings) {
         console.log('storedWebDavSettings ', storedWebDavSettings)
-        let newWebDavSettings = {knownDavs: []}
+        let newWebDavSettings = new DavSettings([])
         if (storedWebDavSettings) {
             newWebDavSettings = storedWebDavSettings
             if (!newWebDavSettings.knownDavs) {
@@ -36,10 +69,6 @@ function getDavSettings(callback) {
         }
         callback(newWebDavSettings)
     })
-}
-
-function storeTheUrlAsKnown(davUrl) {
-    getDavSettings((davSettings) => saveNewWebDavSettings(davSettings, davUrl))
 }
 
 function insertWebdavJs(tabId) {
