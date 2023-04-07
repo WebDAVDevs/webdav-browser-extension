@@ -5,13 +5,26 @@ chrome.tabs.query({
     if (tabs.length !== 1) {
         return
     }
-    let activeTab = tabs[0];
-    insertWebdavJs(activeTab)
+    let activeTab = tabs[0]
     let davUrl = activeTab.url
+    // insertWebdavJs(activeTab.id)
     storeTheUrlAsKnown(davUrl)
 })
 
-function storeTheUrlAsKnown(davUrl) {
+function saveNewWebDavSettings(newWebDavSettings, davUrl) {
+    if (newWebDavSettings.knownDavs.includes(davUrl)) {
+        console.log('davUrl already known ', davUrl)
+        return
+    }
+    newWebDavSettings.knownDavs.push(davUrl)
+    console.log('newWebDavSettings ', newWebDavSettings)
+    chrome.storage.local.set(newWebDavSettings)
+}
+
+/**
+ * @param {Function} callback
+ */
+function getDavSettings(callback) {
     chrome.storage.local.get(function (storedWebDavSettings) {
         console.log('storedWebDavSettings ', storedWebDavSettings)
         let newWebDavSettings = {knownDavs: []}
@@ -21,23 +34,25 @@ function storeTheUrlAsKnown(davUrl) {
                 newWebDavSettings.knownDavs = []
             }
         }
-        newWebDavSettings.knownDavs.push(davUrl)
-        console.log('newWebDavSettings ', newWebDavSettings)
-        chrome.storage.local.set(newWebDavSettings)
+        callback(newWebDavSettings)
     })
 }
 
-function insertWebdavJs(tab) {
+function storeTheUrlAsKnown(davUrl) {
+    getDavSettings((davSettings) => saveNewWebDavSettings(davSettings, davUrl))
+}
+
+function insertWebdavJs(tabId) {
     chrome.scripting.executeScript({
-        target: {tabId: tab.id},
+        target: {tabId: tabId},
         func: clearBody,
     })
     chrome.scripting.executeScript({
-        target: {tabId: tab.id},
+        target: {tabId: tabId},
         files: ['webdav-min.js']
     })
     chrome.scripting.insertCSS({
-        target: {tabId: tab.id},
+        target: {tabId: tabId},
         files: ['style-min.css'],
     })
 }
