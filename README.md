@@ -21,11 +21,21 @@ https://gist.github.com/stokito/a7babfa3c04c92c6c4142581145fe33d
 * [WebDAV User Script for Tampermonkey, Greasemonkey and Violentmonkey](https://gist.github.com/stokito/a7babfa3c04c92c6c4142581145fe33d) it can be used on Firefox Mobile
 * [Awesome WebDAV](https://github.com/stokito/awesome-webdav) list of useful software and services for WebDAV
 
+## Automatic detection of WebDAV
+The plugin tries to determine a webdav share itself with following heuristics:
+- Response to GET contains `DAV` header
+- Response to GET with 403 or 405 status e.g. a typical response when a directory listing disabled
+- subdomain `dav` or `webdav` e.g. `https://dav.example.com/`
+- path has directory `/dav/` or `/webdav/` e.g. `https://dav.example.com/`
+
+This covers most cases IRL.
+
 ## TODO and known problems
 * You need a dir listing enabled otherwise it will fail due to a bug https://github.com/dom111/webdav-js/issues/123
-* Remember folders that should be viewed as dav
+* NextCloud restricts a content script injection, but you anyway don't need the plugin.
+* Remember folders that should be viewed as dav (partially done)
 * Use a state as for Dark Reader or tutorial.focus-mode. The current popup solution is lame.
-* Autodetect a webdav share:
+* Autodetect a webdav share (partially solved):
   * On 403 error we can try a PROPFIND or OPTIONS. If it was successful then load the UI.
   * `DAV: 1,2,3` header is already in use but returned only on OPTIONS. Maybe add it on `GET /` 403 error?
   * `Alt-Svc: dav` header https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Alt-Svc But nobody will set the header
