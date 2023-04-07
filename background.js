@@ -28,7 +28,8 @@ function urlHasDav(url) {
     return url.includes("//dav.") || // dav subdomain
         url.includes("//webdav.") ||
         url.includes("/dav/") ||  // dav folder in url
-        url.includes("/webdav/")
+        url.includes("/webdav/") ||
+        url.includes("//svn.")
 }
 
 function suggester(status) {
