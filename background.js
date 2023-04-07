@@ -52,7 +52,7 @@ function suggester(status) {
     if (noHtmlReturned || urlHasDav(status.url)) {
         console.log('High chance of DAV')
         // Try PROPFIND
-        fetch(status.url, {method: 'PROPFIND', headers: {Depth: 0}})
+        fetch(status.url, {method: 'PROPFIND', headers: {Depth: 0}, credentials: "include"})
             .then(response => response.text())
             .then(propfindXml => checkPropfindResp(propfindXml, status.tabId))
             .catch(error => console.log('Error:', error))
