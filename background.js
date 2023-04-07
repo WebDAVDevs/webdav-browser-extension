@@ -25,26 +25,24 @@ chrome.storage.onChanged.addListener((changes, area) => {
 })
 
 function suggester(status) {
-    if (status.type !== 'main_frame') {
+    if (!(status.type == 'main_frame' && status.method === 'GET' && status.url.endsWith("/"))) {
         return
     }
     console.log('onCompleted')
     console.log(status)
-    if (status.type === 'main_frame' && status.method === 'GET') {
-        // index.html or dir listing with status 200
-        let htmlReturned = status.statusCode === 200
-        // if no index.html or dir listing then will be 403 or in case of Golang 405
-        let noHtmlReturned = status.statusCode === 403 || status.statusCode === 405;
-        if (htmlReturned || noHtmlReturned) {
-            console.log('DAV?')
-            if (isDav(status)) {
-                insertWebdavJs(status.tabId)
-                return
-            }
+    // index.html or dir listing with status 200
+    let htmlReturned = status.statusCode === 200
+    // if no index.html or dir listing then will be 403 or in case of Golang 405
+    let noHtmlReturned = status.statusCode === 403 || status.statusCode === 405;
+    if (htmlReturned || noHtmlReturned) {
+        console.log('DAV?')
+        if (isDav(status)) {
+            insertWebdavJs(status.tabId)
+            return
         }
-        if (noHtmlReturned) {
-            //TODO Check OPTIONS or even PROPFIND directly
-        }
+    }
+    if (noHtmlReturned) {
+        //TODO Check OPTIONS or even PROPFIND directly
     }
 }
 
