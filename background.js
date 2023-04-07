@@ -28,8 +28,7 @@ function urlHasDav(url) {
     return url.includes("//dav.") || // dav subdomain
         url.includes("//webdav.") ||
         url.includes("/dav/") ||  // dav folder in url
-        url.includes("/webdav/") ||
-        url.includes("/remote.php/dav/files/") // NextCloud
+        url.includes("/webdav/")
 }
 
 function suggester(status) {
