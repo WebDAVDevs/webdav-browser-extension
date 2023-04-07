@@ -1,7 +1,14 @@
-// Where we will expose all the data we retrieve from storage.sync.
-const webDavSettings = {
-    knownDavs: []
+class DavSettings {
+    /**
+     * @param {string[]} knownDavs
+     */
+    constructor(knownDavs) {
+        this.knownDavs = knownDavs
+    }
 }
+
+// Where we will expose all the data we retrieve from storage.local.
+const webDavSettings = new DavSettings([])
 
 // Asynchronously retrieve data from storage.sync, then cache it.
 chrome.storage.local.get().then((storedWebDavSettings) => {

@@ -1,6 +1,5 @@
 class DavSettings {
     /**
-     *
      * @param {string[]} knownDavs
      */
     constructor(knownDavs) {
