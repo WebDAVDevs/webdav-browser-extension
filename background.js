@@ -18,8 +18,8 @@ chrome.storage.local.get().then((storedWebDavSettings) => {
 
 chrome.storage.onChanged.addListener((changes, area) => {
     console.log('storage changed ', area, changes)
-    if (area === 'local' && changes.knownDavs?.newValue) {
-        webDavSettings.knownDavs = changes.knownDavs?.newValue
+    if (area === 'local' && changes.knownDavs) {
+        webDavSettings.knownDavs = changes.knownDavs.newValue
         console.log('webDavSettings.knownDavs', webDavSettings.knownDavs)
     }
 })
