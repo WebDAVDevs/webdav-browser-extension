@@ -35,13 +35,7 @@ function checkDavRender(davSettings, davUrl, tabId) {
         insertWebdavJs(tabId)
     } else {
         console.log('davUrl already known, disabling ', davUrl, knownIdx)
-        let newKnownDavs = []
-        for (let i = 0; i < davSettings.knownDavs.length; i++) {
-            if (i != knownIdx) {
-                newKnownDavs.push(davSettings.knownDavs[i])
-            }
-        }
-        davSettings.knownDavs = newKnownDavs
+        davSettings.knownDavs = removeFromArray(davSettings.knownDavs, knownIdx)
         console.log('davUrl already known, knownDavs ', davSettings.knownDavs)
         saveNewWebDavSettings(davSettings)
         setTimeout(() => chrome.tabs.reload(tabId), 500)
@@ -52,6 +46,16 @@ function checkDavRender(davSettings, davUrl, tabId) {
 function saveNewWebDavSettings(newWebDavSettings) {
     console.log('newWebDavSettings ', newWebDavSettings)
     chrome.storage.local.set(newWebDavSettings)
+}
+
+function removeFromArray(arr, rmIdx) {
+    let newArr = []
+    for (let i = 0; i < arr.length; i++) {
+        if (i != rmIdx) {
+            newArr.push(arr[i])
+        }
+    }
+    return newArr;
 }
 
 /**
