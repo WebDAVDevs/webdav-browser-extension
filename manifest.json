@@ -8,6 +8,8 @@
     "48": "icons8-dav-50px.png"
   },
   "permissions": [
+    "webRequest",
+    "storage",
     "activeTab",
     "scripting"
   ],
@@ -15,6 +17,9 @@
     "http://*/*",
     "https://*/*"
   ],
+  "background": {
+    "service_worker": "background.js"
+  },
   "action": {
     "default_popup": "popup.html",
     "default_icon": "icons8-dav-50px.png"

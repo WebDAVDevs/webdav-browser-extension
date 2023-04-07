@@ -5,7 +5,23 @@ chrome.tabs.query({
     if (tabs.length !== 1) {
         return
     }
-    insertWebdavJs(tabs[0])
+    let activeTab = tabs[0];
+    insertWebdavJs(activeTab)
+    let davUrl = activeTab.url
+
+    chrome.storage.local.get(function (storedWebDavSettings) {
+        console.log('storedWebDavSettings ', storedWebDavSettings)
+        let newWebDavSettings = {knownDavs: []}
+        if (storedWebDavSettings) {
+            newWebDavSettings = storedWebDavSettings
+            if (!newWebDavSettings.knownDavs) {
+                newWebDavSettings.knownDavs = []
+            }
+        }
+        newWebDavSettings.knownDavs.push(davUrl)
+        console.log('newWebDavSettings ', newWebDavSettings)
+        chrome.storage.local.set(newWebDavSettings)
+    })
 })
 
 function insertWebdavJs(tab) {
@@ -23,7 +39,7 @@ function insertWebdavJs(tab) {
     })
 }
 
-function clearBody(){
+function clearBody() {
     console.log("Clear existing body if any")
     document.body.innerHTML = ""
 }
