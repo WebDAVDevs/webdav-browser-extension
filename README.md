@@ -1,5 +1,5 @@
-# webdav-browser-extension
-Chrome extension to browse a URL as a WebDAV share.
+# WebDAV browser extension
+Chrome and Firefox extension to browse a URL as a WebDAV share.
 
 ![screenshot](screenshot.png)
 
@@ -15,7 +15,10 @@ But instead of a bookmarklet you can use it as an extension.
 * Firefox https://addons.mozilla.org/en-US/firefox/addon/webdav-browser/
 * Chrome: TBD (I don't have a dev account)
 
+https://gist.github.com/stokito/a7babfa3c04c92c6c4142581145fe33d
+
 ## See also
+* [WebDAV User Script for Tampermonkey, Greasemonkey and Violentmonkey](https://gist.github.com/stokito/a7babfa3c04c92c6c4142581145fe33d) it can be used on Firefox Mobile
 * [Awesome WebDAV](https://github.com/stokito/awesome-webdav) list of useful software and services for WebDAV
 
 ## TODO and known problems
