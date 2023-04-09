@@ -15,30 +15,28 @@ chrome.tabs.query({
         return
     }
     let activeTab = tabs[0]
-    let davUrl = activeTab.url
-    getDavSettings((davSettings) => checkDavRender(davSettings, davUrl, activeTab.id))
+    let currentUrl = activeTab.url
+    getDavSettings((davSettings) => checkDavRender(davSettings, currentUrl, activeTab.id))
 })
 
 /**
- *
- * @param {DavSettings} davSettings
- * @param {string} davUrl
+ * @param {DavSettings} webDavSettings
+ * @param {string} currentUrl
  * @param {int} tabId
  */
-function checkDavRender(davSettings, davUrl, tabId) {
-    let knownIdx = davSettings.knownDavs.indexOf(davUrl);
+function checkDavRender(webDavSettings, currentUrl, tabId) {
+    console.log('search for ', currentUrl, ' in list of knownDavs ', webDavSettings.knownDavs)
+    let knownIdx = webDavSettings.knownDavs.indexOf(currentUrl);
     if (knownIdx < 0) {
-        console.log('store davUrl as known ', davUrl)
-        davSettings.knownDavs.push(davUrl)
-        saveNewWebDavSettings(davSettings)
+        console.log('store currentUrl as known ', currentUrl)
+        webDavSettings.knownDavs.push(currentUrl)
+        saveNewWebDavSettings(webDavSettings)
         insertWebdavJs(tabId)
     } else {
-        console.log('davUrl already known, disabling ', davUrl, knownIdx)
-        davSettings.knownDavs = removeFromArray(davSettings.knownDavs, knownIdx)
-        console.log('davUrl already known, knownDavs ', davSettings.knownDavs)
-        saveNewWebDavSettings(davSettings)
+        console.log('currentUrl already known, disabling ', currentUrl, knownIdx)
+        webDavSettings.knownDavs = removeFromArray(webDavSettings.knownDavs, knownIdx)
+        saveNewWebDavSettings(webDavSettings)
         setTimeout(() => chrome.tabs.reload(tabId), 500)
-        return
     }
 }
 

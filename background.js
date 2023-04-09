@@ -33,7 +33,7 @@ function urlHasDav(url) {
 }
 
 function suggester(status) {
-    if (!(status.type == 'main_frame' && status.method === 'GET' && status.url.endsWith("/"))) {
+    if (!(status.type === 'main_frame' && status.method === 'GET' && status.url.endsWith("/"))) {
         return
     }
     console.log('onCompleted')
@@ -73,11 +73,11 @@ function isDav(status) {
         console.log('Has DAV header')
         return true
     }
-    let url = status.url
-    console.log('search for ', url, ' in list of knownDavs ', webDavSettings.knownDavs)
-    let knownIdx = webDavSettings.knownDavs.findIndex((val) => val.startsWith(url))
+    let currentUrl = status.url
+    console.log('search for ', currentUrl, ' in list of knownDavs ', webDavSettings.knownDavs)
+    let knownIdx = webDavSettings.knownDavs.findIndex((val) => val.startsWith(currentUrl))
     console.log('found idx ', knownIdx)
-    return knownIdx != -1
+    return knownIdx >= 0
 }
 
 chrome.webRequest.onCompleted.addListener(
