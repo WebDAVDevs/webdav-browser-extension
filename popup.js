@@ -7,6 +7,12 @@ class DavSettings {
     }
 }
 
+function isKnown(currentUrl) {
+    console.log('search for ', currentUrl, ' in list of knownDavs ', webDavSettings.knownDavs)
+    return webDavSettings.knownDavs.findIndex((val) => currentUrl.startsWith(val));
+}
+
+
 chrome.tabs.query({
     currentWindow: true,
     active: true
@@ -26,7 +32,7 @@ chrome.tabs.query({
  */
 function checkDavRender(webDavSettings, currentUrl, tabId) {
     console.log('search for ', currentUrl, ' in list of knownDavs ', webDavSettings.knownDavs)
-    let knownIdx = webDavSettings.knownDavs.findIndex((val) => currentUrl.startsWith(val))
+    let knownIdx = isKnown(currentUrl)
     if (knownIdx < 0) {
         console.log('store currentUrl as known ', currentUrl)
         webDavSettings.knownDavs.push(currentUrl)
