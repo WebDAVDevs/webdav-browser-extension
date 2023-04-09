@@ -86,7 +86,7 @@ function getDavSettings(callback) {
 function insertWebdavJs(tabId) {
     chrome.scripting.executeScript({
         target: {tabId: tabId},
-        func: clearBody,
+        files: ['loadWebdavJs.js']
     })
     chrome.scripting.executeScript({
         target: {tabId: tabId},
@@ -96,9 +96,4 @@ function insertWebdavJs(tabId) {
         target: {tabId: tabId},
         files: ['style-min.css'],
     })
-}
-
-function clearBody() {
-    console.log("Clear existing body if any")
-    document.body.innerHTML = ""
 }
