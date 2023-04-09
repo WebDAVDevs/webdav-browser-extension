@@ -7,9 +7,15 @@ class DavSettings {
     }
 }
 
-function isKnown(currentUrl) {
-    console.log('search for ', currentUrl, ' in list of knownDavs ', webDavSettings.knownDavs)
-    return webDavSettings.knownDavs.findIndex((val) => currentUrl.startsWith(val));
+/**
+ * @param {string} currentUrl
+ * @param {string[]} knownDavs
+ * @returns {int}
+ */
+function isKnown(currentUrl, knownDavs) {
+    let knownIdx = knownDavs.findIndex((val) => currentUrl.startsWith(val))
+    console.log('search for ', currentUrl, ' in list of knownDavs ', knownDavs, ' knownIdx: ', knownIdx)
+    return knownIdx
 }
 
 // Where we will expose all the data we retrieve from storage.local.
@@ -67,8 +73,7 @@ function isDav(status) {
         console.log('Has DAV header')
         return true
     }
-    let knownIdx = isKnown(status.url)
-    console.log('found idx ', knownIdx)
+    let knownIdx = isKnown(status.url, webDavSettings.knownDavs)
     return knownIdx >= 0
 }
 
