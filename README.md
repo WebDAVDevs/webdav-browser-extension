@@ -71,3 +71,6 @@ Currently the plugin just calls a webdav-js library that makes rendering of UI. 
 Also I wanted to add a dav:// protocol schema handler to the plugin but it's not possible: https://discourse.mozilla.org/t/protocol-handler-extension-for-webdav/111920
 
 If anyone interested to test or contribute to the plugin I'll appreciate
+
+### Manifest problem
+When packing for Chrome use manifest.json but for firefox use manifest.firefox.json 
