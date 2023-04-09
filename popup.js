@@ -26,7 +26,7 @@ chrome.tabs.query({
  */
 function checkDavRender(webDavSettings, currentUrl, tabId) {
     console.log('search for ', currentUrl, ' in list of knownDavs ', webDavSettings.knownDavs)
-    let knownIdx = webDavSettings.knownDavs.indexOf(currentUrl);
+    let knownIdx = webDavSettings.knownDavs.findIndex((val) => currentUrl.startsWith(val))
     if (knownIdx < 0) {
         console.log('store currentUrl as known ', currentUrl)
         webDavSettings.knownDavs.push(currentUrl)

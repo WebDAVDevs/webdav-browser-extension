@@ -75,7 +75,7 @@ function isDav(status) {
     }
     let currentUrl = status.url
     console.log('search for ', currentUrl, ' in list of knownDavs ', webDavSettings.knownDavs)
-    let knownIdx = webDavSettings.knownDavs.findIndex((val) => val.startsWith(currentUrl))
+    let knownIdx = webDavSettings.knownDavs.findIndex((val) => currentUrl.startsWith(val))
     console.log('found idx ', knownIdx)
     return knownIdx >= 0
 }
