@@ -51,21 +51,10 @@ function suggester(status) {
     }
     if (noHtmlReturned || urlHasDav(status.url)) {
         console.log('High chance of DAV')
-        // Try PROPFIND
-        fetch(status.url, {method: 'PROPFIND', headers: {Depth: 0}, credentials: "include"})
-            .then(response => response.text())
-            .then(propfindXml => checkPropfindResp(propfindXml, status.tabId))
-            .catch(error => console.log('Error:', error))
+        insertWebdavJs(status.tabId)
     }
 }
 
-function checkPropfindResp(propfindXml, tabId) {
-    // Does it have <D:multistatus>?
-    if (propfindXml.includes('multistatus')) {
-        console.log('yep, this is dav')
-        insertWebdavJs(tabId)
-    }
-}
 
 function isDav(status) {
     // If it has a DAV header specifically set then yes
@@ -89,7 +78,7 @@ chrome.webRequest.onCompleted.addListener(
 function insertWebdavJs(tabId) {
     chrome.scripting.executeScript({
         target: {tabId: tabId},
-        func: clearBody,
+        files: ['loadWebdavJs.js']
     })
     chrome.scripting.executeScript({
         target: {tabId: tabId},
@@ -99,9 +88,4 @@ function insertWebdavJs(tabId) {
         target: {tabId: tabId},
         files: ['style-min.css'],
     })
-}
-
-function clearBody() {
-    console.log("Clear existing body if any")
-    document.body.innerHTML = ""
 }
