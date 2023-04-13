@@ -53,7 +53,7 @@ This is possible if install on a server a webdav-js script or use the webdav-js 
 So we need to add the WebDAV support directly to a browser or at least for now we can create an extension/addon/plugin.
 
 To test it you can open any SVN repository and press on it's icon. For example SVN repo of the EmailRelay
-https://sourceforge.net/p/emailrelay/code/HEAD/tree/trunk/
+https://svn.code.sf.net/p/emailrelay/code/trunk/
 
 The SVN is based on WebDAV so you can probably even mount an SVN repo into folder.
 
