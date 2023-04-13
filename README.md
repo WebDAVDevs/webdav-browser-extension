@@ -12,8 +12,9 @@ It just uses the https://github.com/dom111/webdav-js
 But instead of a bookmarklet you can use it as an extension.
 
 ## Install
-* Firefox https://addons.mozilla.org/en-US/firefox/addon/webdav-browser/
+* [Firefox](https://addons.mozilla.org/en-US/firefox/addon/webdav-browser/)
 * Chrome: TBD (I don't have a dev account)
+* [Edge](https://microsoftedge.microsoft.com/addons/detail/webdav-browser/eombekfdnaaaakejkpdncleghmfmmjfo)
 
 https://gist.github.com/stokito/a7babfa3c04c92c6c4142581145fe33d
 
