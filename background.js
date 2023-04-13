@@ -86,14 +86,14 @@ chrome.webRequest.onCompleted.addListener(
 function insertWebdavJs(tabId) {
     chrome.scripting.executeScript({
         target: {tabId: tabId},
-        files: ['loadWebdavJs.js']
-    })
-    chrome.scripting.executeScript({
-        target: {tabId: tabId},
         files: ['webdav-min.js']
     })
     chrome.scripting.insertCSS({
         target: {tabId: tabId},
         files: ['style-min.css'],
+    })
+    chrome.scripting.executeScript({
+        target: {tabId: tabId},
+        files: ['loadWebdavJs.js']
     })
 }
