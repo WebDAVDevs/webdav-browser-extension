@@ -7,4 +7,4 @@ it's a minifed version of https://github.com/dom111/webdav-js
 
 They are taken from jsdelivr.com
 
-
+I only slightly modified the webdav-min.js and wrapped it into a function initializeDavUi() to make its initialization manually.

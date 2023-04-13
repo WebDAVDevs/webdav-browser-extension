@@ -5,7 +5,7 @@
   "version": "1.2.0",
   "manifest_version": 3,
   "icons": {
-    "48": "icons8-dav-50px.png"
+    "48": "icons8-dav-48px.png"
   },
   "permissions": [
     "webRequest",
@@ -22,7 +22,7 @@
   },
   "action": {
     "default_popup": "popup.html",
-    "default_icon": "icons8-dav-50px.png"
+    "default_icon": "icons8-dav-48px.png"
   },
   "default_locale": "en"
 }
