@@ -12,10 +12,10 @@ It just uses the https://github.com/dom111/webdav-js
 But instead of a bookmarklet you can use it as an extension.
 
 ## Install
-* Firefox https://addons.mozilla.org/en-US/firefox/addon/webdav-browser/
+* [Firefox](https://addons.mozilla.org/en-US/firefox/addon/webdav-browser/)
 * Chrome: TBD (I don't have a dev account)
-
-https://gist.github.com/stokito/a7babfa3c04c92c6c4142581145fe33d
+* [Edge](https://microsoftedge.microsoft.com/addons/detail/webdav-browser/eombekfdnaaaakejkpdncleghmfmmjfo)
+* Mobile Firefox via UserScript in TamperMonkey https://gist.github.com/stokito/a7babfa3c04c92c6c4142581145fe33d
 
 ## See also
 * [WebDAV User Script for Tampermonkey, Greasemonkey and Violentmonkey](https://gist.github.com/stokito/a7babfa3c04c92c6c4142581145fe33d) it can be used on Firefox Mobile
@@ -26,23 +26,22 @@ The plugin tries to determine a webdav share itself with following heuristics:
 - Response to GET contains `DAV` header
 - Response to GET with 403 or 405 status e.g. a typical response when a directory listing disabled
 - subdomain `dav` or `webdav` e.g. `https://dav.example.com/`
-- path has directory `/dav/` or `/webdav/` e.g. `https://dav.example.com/`
+- path has directory `/dav/` or `/webdav/` e.g. `https://example.com/dav/`
 
 This covers most cases IRL.
 
 ## TODO and known problems
 * You need a dir listing enabled otherwise it will fail due to a bug https://github.com/dom111/webdav-js/issues/123
 * NextCloud restricts a content script injection, but you anyway don't need the plugin.
-* Remember folders that should be viewed as dav (partially done)
+* [x] Remember folders that should be viewed as dav
 * Use a state as for Dark Reader or tutorial.focus-mode. The current popup solution is lame.
 * Autodetect a webdav share (partially solved):
-  * On 403 error we can try a PROPFIND or OPTIONS. If it was successful then load the UI.
-  * `DAV: 1,2,3` header is already in use but returned only on OPTIONS. Maybe add it on `GET /` 403 error?
-  * `Alt-Svc: dav` header https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Alt-Svc But nobody will set the header
-  * https://lists.w3.org/Archives/Public/w3c-dist-auth/2023JanMar/0000.html
+  * [x] On 403 error we can try a PROPFIND or OPTIONS. If it was successful then load the UI.
+  * [x] `DAV: 1,2,3` header is already in use but returned only on OPTIONS. Maybe add it on `GET /` 403 error? **UPD** It's not used by any server but you may add the header manually.
+  * `Alt-Svc: dav` header https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Alt-Svc But nobody will set the header. Discussion about possible solutions https://lists.w3.org/Archives/Public/w3c-dist-auth/2023JanMar/0000.html
   * If the directory has a listing with a `<title>Index of ...</title>` then it may have a dav version too but unlikely.
-  * By a folder name `/dav/` or subdomain `dav.example.com`
-  * List of existing cloud providers like `https://webdav.yandex.ru`
+  * [x] By a folder name `/dav/` or subdomain `dav.example.com`
+  * List of existing cloud providers like `https://webdav.yandex.ru`. **UPD** Most providers have dav/webdav subdomain
 * Option to load the webdav-js directly from CDN with a latest version
 * Open any WebDAV server e.g. just as an app. See also https://github.com/dom111/webdav-js/issues/120
 
@@ -56,7 +55,7 @@ So we need to add the WebDAV support directly to a browser or at least for now w
 
 To test it you can open any SVN repository and press on its icon.
 For example SVN repo of the EmailRelay
-https://sourceforge.net/p/emailrelay/code/HEAD/tree/trunk/
+https://svn.code.sf.net/p/emailrelay/code/trunk/
 
 The SVN is based on WebDAV so you can probably even mount an SVN repo into folder.
 
