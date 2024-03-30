@@ -5,7 +5,9 @@
   "version": "1.2.2",
   "manifest_version": 3,
   "icons": {
-    "48": "icons8-dav-48px.png"
+    "48": "logo48.png",
+    "128": "logo128.png",
+    "256": "logo.svg"
   },
   "permissions": [
     "webRequest",
@@ -23,7 +25,7 @@
   },
   "action": {
     "default_popup": "popup.html",
-    "default_icon": "icons8-dav-48px.png"
+    "default_icon": "logo48.png"
   },
   "browser_specific_settings": {
     "gecko": {
