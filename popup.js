@@ -1,16 +1,4 @@
-class DavSettings {
-  /** @type string[] */
-  knownDavs= []
-
-  /**
-   * @param {string} currentUrl
-   */
-  isKnown (currentUrl) {
-    let knownIdx = this.knownDavs.findIndex((val) => currentUrl.startsWith(val))
-    console.log('search for ', currentUrl, ' in list of knownDavs ', this.knownDavs, ' knownIdx: ', knownIdx)
-    return knownIdx
-  }
-}
+import * as settings from './DavSettings'
 
 chrome.tabs.query({
   currentWindow: true,
@@ -55,7 +43,7 @@ function saveNewWebDavSettings (newWebDavSettings) {
 function getDavSettings (callback) {
   chrome.storage.local.get(function (storedWebDavSettings) {
     console.log('storedWebDavSettings ', storedWebDavSettings)
-    let newWebDavSettings = new DavSettings()
+    let newWebDavSettings = new settings.DavSettings()
     if (storedWebDavSettings) {
       newWebDavSettings = storedWebDavSettings
       if (!newWebDavSettings.knownDavs) {

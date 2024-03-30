@@ -1,19 +1,7 @@
-class DavSettings {
-  /** @type string[] */
-  knownDavs = []
-
-  /**
-   * @param {string} currentUrl
-   */
-  isKnown (currentUrl) {
-    let knownIdx = this.knownDavs.findIndex((val) => currentUrl.startsWith(val))
-    console.log('search for ', currentUrl, ' in list of knownDavs ', this.knownDavs, ' knownIdx: ', knownIdx)
-    return knownIdx
-  }
-}
+import * as settings from './DavSettings'
 
 // Where we will expose all the data we retrieve from storage.local.
-const webDavSettings = new DavSettings()
+const webDavSettings = new settings.DavSettings()
 
 // Asynchronously retrieve data from storage.sync, then cache it.
 chrome.storage.local.get().then((storedWebDavSettings) => {
