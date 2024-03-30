@@ -1,15 +1,15 @@
 # WebDAV browser extension
+
+[По-русски](./README.ru.md)
+
 Chrome and Firefox extension to browse a URL as a WebDAV share.
 
 ![screenshot](screenshot.png)
 
-Open WebDAV folder in a browser and you'll have ether 403 error or just a plain directory listing.
+Open WebDAV folder in a browser and you'll have either 403 error or just a plain directory listing.
 Then click on the addon button and it will make a file manager from the folder where you can watch, upload, delete files and directories.
 
 See [usage video](usage.gif) 
-
-It just uses the https://github.com/dom111/webdav-js
-But instead of a bookmarklet you can use it as an extension.
 
 ## Install
 * [Firefox](https://addons.mozilla.org/en-US/firefox/addon/webdav-browser/)
@@ -18,6 +18,7 @@ But instead of a bookmarklet you can use it as an extension.
 * Mobile Firefox via UserScript in TamperMonkey https://gist.github.com/stokito/a7babfa3c04c92c6c4142581145fe33d
 
 ## See also
+* [File Management WebDav Browser Application](https://chromewebstore.google.com/detail/file-management-webdav/famepaffkmmhdefbapbadnniioekdppm) - a powerful app to connect to any WebDAV sever.
 * [WebDAV User Script for Tampermonkey, Greasemonkey and Violentmonkey](https://gist.github.com/stokito/a7babfa3c04c92c6c4142581145fe33d) it can be used on Firefox Mobile
 * [Awesome WebDAV](https://github.com/stokito/awesome-webdav) list of useful software and services for WebDAV
 
@@ -50,7 +51,7 @@ This covers most cases IRL.
 Currently there is no a simple solution to see and work with a WebDAV share for inexperienced users.
 You need to mount a drive (which is not that easy) or you need to use a special software.
 Ideally users should be able to do this just from a browser.
-This is possible if install on a server a webdav-js script or use the webdav-js as a bookmarklet from a browser (still complicated for most users).
+This is possible if install on a server a [webdav-js](https://github.com/dom111/webdav-js) script or use the webdav-js as a bookmarklet from a browser (still complicated for most users).
 So we need to add the WebDAV support directly to a browser or at least for now we can create an extension/addon/plugin.
 
 To test it you can open any SVN repository and press on its icon.
