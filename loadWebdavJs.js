@@ -7,7 +7,7 @@ function checkWebdavEnabled () {
     .catch(error => console.log('Error:', error))
 }
 
-function checkPropfindResp (propfindXml, tabId, davUrl) {
+function checkPropfindResp (propfindXml) {
   // Does it have <D:multistatus>?
   if (propfindXml.includes('multistatus')) {
     console.log('yep, this is dav')
