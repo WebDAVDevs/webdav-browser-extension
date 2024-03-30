@@ -1,25 +1,19 @@
 class DavSettings {
+  /** @type string[] */
+  knownDavs = []
+
   /**
-   * @param {string[]} knownDavs
+   * @param {string} currentUrl
    */
-  constructor (knownDavs) {
-    this.knownDavs = knownDavs
+  isKnown (currentUrl) {
+    let knownIdx = this.knownDavs.findIndex((val) => currentUrl.startsWith(val))
+    console.log('search for ', currentUrl, ' in list of knownDavs ', this.knownDavs, ' knownIdx: ', knownIdx)
+    return knownIdx
   }
 }
 
-/**
- * @param {string} currentUrl
- * @param {string[]} knownDavs
- * @returns {int}
- */
-function isKnown (currentUrl, knownDavs) {
-  let knownIdx = knownDavs.findIndex((val) => currentUrl.startsWith(val))
-  console.log('search for ', currentUrl, ' in list of knownDavs ', knownDavs, ' knownIdx: ', knownIdx)
-  return knownIdx
-}
-
 // Where we will expose all the data we retrieve from storage.local.
-const webDavSettings = new DavSettings([])
+const webDavSettings = new DavSettings()
 
 // Asynchronously retrieve data from storage.sync, then cache it.
 chrome.storage.local.get().then((storedWebDavSettings) => {
@@ -47,8 +41,6 @@ function suggester (status) {
   if (!(status.type === 'main_frame' && status.method === 'GET' && status.url.endsWith('/'))) {
     return
   }
-  console.log('onCompleted')
-  console.log(status)
   // index.html or dir listing with status 200
   let htmlReturned = status.statusCode === 200
   // if no index.html or dir listing then will be 403 or in case of Golang 405
@@ -72,7 +64,7 @@ function isDav (status) {
     console.log('Has DAV header')
     return true
   }
-  let knownIdx = isKnown(status.url, webDavSettings.knownDavs)
+  let knownIdx = webDavSettings.isKnown(status.url)
   return knownIdx >= 0
 }
 
