@@ -1,7 +1,7 @@
-import * as settings from './DavSettings'
+import { DavSettings } from './DavSettings.js'
 
 // Where we will expose all the data we retrieve from storage.local.
-const webDavSettings = new settings.DavSettings()
+const webDavSettings = new DavSettings()
 
 // Asynchronously retrieve data from storage.sync, then cache it.
 chrome.storage.local.get().then((storedWebDavSettings) => {

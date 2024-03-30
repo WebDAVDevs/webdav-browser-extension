@@ -1,4 +1,4 @@
-import * as settings from './DavSettings'
+import { DavSettings } from './DavSettings.js'
 
 chrome.tabs.query({
   currentWindow: true,
@@ -38,7 +38,7 @@ function saveNewWebDavSettings (newWebDavSettings) {
 function getDavSettings (callback) {
   chrome.storage.local.get(storedWebDavSettings => {
     console.log('storedWebDavSettings ', storedWebDavSettings)
-    let newWebDavSettings = new settings.DavSettings()
+    let newWebDavSettings = new DavSettings()
     if (storedWebDavSettings) {
       newWebDavSettings = storedWebDavSettings
       if (!newWebDavSettings.knownDavs) {
