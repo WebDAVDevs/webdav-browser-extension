@@ -38,7 +38,7 @@ function checkDavRender (webDavSettings, currentUrl, tabId) {
     insertWebdavJs(tabId)
   } else {
     console.log('currentUrl already known, disabling ', currentUrl, knownIdx)
-    webDavSettings.knownDavs = removeFromArray(webDavSettings.knownDavs, knownIdx)
+    webDavSettings.knownDavs.splice(knownIdx, 1)
     saveNewWebDavSettings(webDavSettings)
     setTimeout(() => chrome.tabs.reload(tabId), 500)
   }
@@ -49,23 +49,13 @@ function saveNewWebDavSettings (newWebDavSettings) {
   chrome.storage.local.set(newWebDavSettings)
 }
 
-function removeFromArray (arr, rmIdx) {
-  let newArr = []
-  for (let i = 0; i < arr.length; i++) {
-    if (i !== rmIdx) {
-      newArr.push(arr[i])
-    }
-  }
-  return newArr
-}
-
 /**
  * @param {Function} callback
  */
 function getDavSettings (callback) {
   chrome.storage.local.get(function (storedWebDavSettings) {
     console.log('storedWebDavSettings ', storedWebDavSettings)
-    let newWebDavSettings = new DavSettings([])
+    let newWebDavSettings = new DavSettings()
     if (storedWebDavSettings) {
       newWebDavSettings = storedWebDavSettings
       if (!newWebDavSettings.knownDavs) {
