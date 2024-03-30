@@ -52,8 +52,7 @@ function isDav (status) {
     console.log('Has DAV header')
     return true
   }
-  let knownIdx = webDavSettings.isKnown(status.url)
-  return knownIdx >= 0
+  return webDavSettings.isKnownDavUrl(status.url)
 }
 
 chrome.webRequest.onCompleted.addListener(
