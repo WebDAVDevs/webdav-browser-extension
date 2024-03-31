@@ -25,7 +25,6 @@
     "type": "module"
   },
   "action": {
-    "default_popup": "popup.html",
     "default_icon": "logo48.png"
   },
   "browser_specific_settings": {
