@@ -3,9 +3,9 @@ import { DavSettings } from './DavSettings.js'
 // Where we will expose all the data we retrieve from storage.local.
 const webDavSettings = new DavSettings()
 
-browser.action.onClicked.addListener(actionClick)
+browser.action.onClicked.addListener(actionToggleClick)
 
-async function actionClick (e) {
+async function actionToggleClick (e) {
   let tabs = await chrome.tabs.query({
     currentWindow: true,
     active: true
@@ -15,22 +15,12 @@ async function actionClick (e) {
   }
   let activeTab = tabs[0]
   let currentUrl = activeTab.url
-  let davSettings = await getDavSettings()
-  checkDavRender(davSettings, currentUrl, activeTab.id)
-}
-
-/**
- * @param {DavSettings} webDavSettings
- * @param {string} currentUrl
- * @param {int} tabId
- */
-function checkDavRender (webDavSettings, currentUrl, tabId) {
   let known = webDavSettings.toggleKnownDavUrl(currentUrl)
   saveNewWebDavSettings(webDavSettings)
   if (known) {
-    insertWebdavJs(tabId)
+    insertWebdavJs(activeTab.id)
   } else {
-    setTimeout(() => chrome.tabs.reload(tabId), 500)
+    setTimeout(() => chrome.tabs.reload(activeTab.id), 500)
   }
 }
 
@@ -39,29 +29,12 @@ function saveNewWebDavSettings (newWebDavSettings) {
   chrome.storage.local.set(newWebDavSettings)
 }
 
-async function getDavSettings () {
-  let storedWebDavSettings = await chrome.storage.local.get()
-  console.log('storedWebDavSettings ', storedWebDavSettings)
-  let newWebDavSettings = new DavSettings()
-  if (storedWebDavSettings) {
-    Object.assign(newWebDavSettings, storedWebDavSettings)
-  }
-  return newWebDavSettings
-}
-
 // Asynchronously retrieve data from storage.sync, then cache it.
 chrome.storage.local.get().then((storedWebDavSettings) => {
   // Copy the data retrieved from storage into webDavSettings.
   Object.assign(webDavSettings, storedWebDavSettings)
 })
 
-chrome.storage.onChanged.addListener((changes, area) => {
-  console.log('storage changed ', area, changes)
-  if (area === 'local' && changes.knownDavs) {
-    webDavSettings.knownDavs = changes.knownDavs.newValue
-    console.log('webDavSettings.knownDavs', webDavSettings.knownDavs)
-  }
-})
 
 function urlHasDav (url) {
   return url.includes('//dav.') || // dav subdomain
