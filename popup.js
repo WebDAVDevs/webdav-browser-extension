@@ -1,16 +1,18 @@
 import { DavSettings } from './DavSettings.js'
 
-chrome.tabs.query({
-  currentWindow: true,
-  active: true
-}, (tabs) => {
+async function actionClick (e) {
+  let tabs = await chrome.tabs.query({
+    currentWindow: true,
+    active: true
+  })
   if (tabs.length !== 1) {
     return
   }
   let activeTab = tabs[0]
   let currentUrl = activeTab.url
-  getDavSettings((davSettings) => checkDavRender(davSettings, currentUrl, activeTab.id))
-})
+  let davSettings = await getDavSettings()
+  checkDavRender(davSettings, currentUrl, activeTab.id)
+}
 
 /**
  * @param {DavSettings} webDavSettings
@@ -32,31 +34,14 @@ function saveNewWebDavSettings (newWebDavSettings) {
   chrome.storage.local.set(newWebDavSettings)
 }
 
-/**
- * @param {Function} callback
- */
-function getDavSettings (callback) {
-  chrome.storage.local.get(storedWebDavSettings => {
-    console.log('storedWebDavSettings ', storedWebDavSettings)
-    let newWebDavSettings = new DavSettings()
-    if (storedWebDavSettings) {
-      Object.assign(newWebDavSettings, storedWebDavSettings)
-    }
-    callback(newWebDavSettings)
-  })
+async function getDavSettings () {
+  let storedWebDavSettings = await chrome.storage.local.get()
+  console.log('storedWebDavSettings ', storedWebDavSettings)
+  let newWebDavSettings = new DavSettings()
+  if (storedWebDavSettings) {
+    Object.assign(newWebDavSettings, storedWebDavSettings)
+  }
+  return newWebDavSettings
 }
 
-function insertWebdavJs (tabId) {
-  chrome.scripting.executeScript({
-    target: { tabId: tabId },
-    files: ['webdav-min.js']
-  })
-  chrome.scripting.insertCSS({
-    target: { tabId: tabId },
-    files: ['style-min.css'],
-  })
-  chrome.scripting.executeScript({
-    target: { tabId: tabId },
-    files: ['loadWebdavJs.js']
-  })
-}
+await actionClick()
