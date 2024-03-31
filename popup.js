@@ -40,10 +40,7 @@ function getDavSettings (callback) {
     console.log('storedWebDavSettings ', storedWebDavSettings)
     let newWebDavSettings = new DavSettings()
     if (storedWebDavSettings) {
-      newWebDavSettings = storedWebDavSettings
-      if (!newWebDavSettings.knownDavs) {
-        newWebDavSettings.knownDavs = []
-      }
+      Object.assign(newWebDavSettings, storedWebDavSettings)
     }
     callback(newWebDavSettings)
   })
