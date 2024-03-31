@@ -1,7 +1,17 @@
 import { DavSettings } from './DavSettings.js'
 
-// Where we will expose all the data we retrieve from storage.local.
 const webDavSettings = new DavSettings()
+let storedWebDavSettings = await chrome.storage.sync.get()
+Object.assign(webDavSettings, storedWebDavSettings)
+console.log('loaded', webDavSettings)
+
+// update webDavSettings when it was changed on remote
+chrome.storage.onChanged.addListener((changes, area) => {
+  if (changes.knownDavs) {
+    webDavSettings.knownDavs = changes.knownDavs.newValue
+    console.log('webDavSettings.knownDavs', webDavSettings.knownDavs)
+  }
+})
 
 browser.action.onClicked.addListener(actionToggleClick)
 
@@ -26,15 +36,8 @@ async function actionToggleClick (e) {
 
 function saveNewWebDavSettings (newWebDavSettings) {
   console.log('newWebDavSettings ', newWebDavSettings)
-  chrome.storage.local.set(newWebDavSettings)
+  chrome.storage.sync.set(newWebDavSettings)
 }
-
-// Asynchronously retrieve data from storage.sync, then cache it.
-chrome.storage.local.get().then((storedWebDavSettings) => {
-  // Copy the data retrieved from storage into webDavSettings.
-  Object.assign(webDavSettings, storedWebDavSettings)
-})
-
 
 function urlHasDav (url) {
   return url.includes('//dav.') || // dav subdomain
